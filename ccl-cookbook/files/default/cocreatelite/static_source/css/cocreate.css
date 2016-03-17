@@ -1,0 +1,82 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 30px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 30px;
+  background-color: #f5f5f5;
+}
+
+/* Progress bar styling */
+#progress {
+  width: 200px;   
+  border: 1px solid black;
+  position: relative;
+  padding: 3px;
+}
+#bar {
+  height: 10px;
+}
+
+/********************/
+/* Styling from GSM */
+.NGAearthBG {
+  background-color: rgb(83, 121, 160);
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+  height: 90px;
+  background-size: cover;
+}
+
+#cocreate_navbar_wide {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1200px;
+}
+
+body {
+  font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif !important; 
+  font-size: 10pt;
+  color: #333;
+  background-color: #EEE !important;
+  height: 100%;
+}
+
+body a {
+  color: #055080;
+}
+
+.ngablue {
+  background-color: #5379a0 !important;
+  border-color: #4389b0 !important;
+}
+
+body a:hover {
+  color: #000;
+}
+
+.btn-primary {
+  background-color: #428bca;
+  border-color: #357ebd;
+  color: #fff;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: #3276b1;
+  border-color: #285e8e;
+  color: #000 !important;
+}
+
+/* End Styling from GSM */
+/************************/

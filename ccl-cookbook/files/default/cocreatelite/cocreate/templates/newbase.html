@@ -1,0 +1,99 @@
+{% extends "bootstrap.html" %}
+
+{% load url from future %}
+
+{% load bootstrap3 %}
+
+{% block bootstrap3_extra_head %}
+    	{% load staticfiles %}
+    	<!--<link href="{% static "css/bootstrap.flatly.min.css" %}" rel="stylesheet"/> -->
+    	<!--<link href="{% static "css/cocreate.css" %}" rel="stylesheet"/> -->
+        <!--<link href="{% static "css/chefviz/createInstance.css" %}" rel="stylesheet"/>-->
+        <!--<link href="{% static "css/chefviz/instancestatus.css" %}" rel="stylesheet"/>-->
+        <!--<script src="{% static "js/bootstrap.min.js" %}"></script>-->
+        <!--<script src="{% static "js/chefviz/angular.min.js" %}"></script>-->
+        <!--<script src="{% static "js/chefviz/util.js" %}"></script>-->
+        <style>
+        .btn-margin-left {
+            margin-left: 10px;
+        }
+        </style>
+{% endblock %}
+{% block title %}CoCreate:Lite{% endblock %}
+{% block bootstrap3_content %}
+        {% bootstrap_messages %}
+        
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'home' %}">CoCreate:Lite</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+            <li><a href="{% url 'playgrounds' %}"><span class="glyphicon glyphicon-hdd"></span> Playgrounds</a></li>
+            
+            <li>
+                <a href="{% url 'notifications' %}">
+                    <span class="glyphicon glyphicon-envelope"></span> Notifications
+                    {% if notification_unread_count %}
+                        <span class="badge">{{ notification_unread_count }}</span>
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-right navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <span class="glyphicon glyphicon-cog"></span> Settings <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{% url 'awskey' %}">AWS Key</a></li>
+                    <li><a href="{% url 'proxy' %}">Proxy</a></li>
+                    <!--
+                    <li><a href="{% url 'profile-sshkeys' %}">SSH Keys</a></li>
+                    <li><a href="{% url 'profile-repositories' %}">Repositories</a></li>
+                    // -->
+                    <li><a href="{% url 'help' %}">Help</a></li>
+                </ul>
+            </li>
+      </ul>
+      
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+        <div class="container">
+            {% bootstrap_messages %}
+
+            {% block content %}(no content){% endblock %}
+        </div>
+        
+        <div class="footer">
+          <div class="container">
+              <div class="row">
+                <div class="col-md-4 col-md-offset-8"><p class="text-muted">Co-Create:Lite version {{ version }}</p></div>
+              </div>
+          </div>
+        </div>
+
+<script>
+        $(function () {
+            $(".navbar-btn").click(function (e) {
+                var href = e.target.getAttribute("href");
+                console.log(href);
+                window.location = e.target.getAttribute("href");
+            });
+        });
+</script>
+{% endblock %}

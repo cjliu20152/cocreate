@@ -1,0 +1,75 @@
+{% extends "newbase.html" %}
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<br/>
+
+{% if showSshKeys %}
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">SSH Keys</h2>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Key Name</th>
+                        <th>Finger Print</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key in request.user.sshkeys.all %}
+                        <tr>
+                            <td>{{ key.name }}</td>
+                            <td>{{ key.fingerprint }} - {{ key.keytype }}</td>
+                            <td><a href="{% url 'profile-sshkeys-remove' key.id %}" class="btn btn-danger btn-xs">Remove</a>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="panel-footer">
+                <a href="{% url 'profile-sshkeys-add' %}" class="btn btn-info btn-xs">Add an SSH Key</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if showRepositories %}
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Repositories</h2>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>URI</th>
+                        <th>Sandboxes</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for repo in request.user.repositories.all %}
+                        <tr>
+                            <td>{{ repo.name }}</td>
+                            <td>{{ repo.uri }}</td>
+                            <td>{{ repo.sandboxes.all|length }}</td>
+                            <td><a href="{% url 'profile-repository-remove' repo.id %}" class="btn btn-danger btn-xs">Remove</a>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="panel-footer">
+                <a href="{% url 'profile-repository-add' %}" class="btn btn-info btn-xs">Add a Git Repository</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block html %}ng-app="chefInstanceCreate"{% endblock %}
+{% block title %}Request a New AWS Sandbox{% endblock %}
+
+{% block content %}
+
+{% csrf_token %}
+
+{% verbatim %}
+
+<div class="page-header">
+    <h1>Request a New AWS Sandbox</h1>
+</div>
+
+    <div id="content" class="container" ng-controller="chefInstanceController">
+      <div class="page-header">
+        <div id="invalidFieldWarn" class="alert alert-danger collapse" role="alert">There's a missing data field. Please confirm all items are selected.</div>
+      </div>
+
+      <div class="container">
+        <form role="form">
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Instance name for AWS tag and client name for the node in chef -->
+              <div class="form-group">
+                <label for="instanceName">Instance Name <span class="glyphicon glyphicon-ok" style="color: green" ng-show="fieldFilled('name')"></label>
+                <input type="text" class="form-control" id="instanceName" placeholder="Enter a unique name for this instance" ng-model="instance.name">
+              </div>
+
+             <!-- Instance Recipe -->
+              <div class="form-group">
+                <label for="instanceApp">Instance Application <span class="glyphicon glyphicon-ok" style="color: green" ng-show="fieldFilled('recipe')"></label>
+                <select class="form-control" id="instanceApp" ng-model="instance.recipe" ng-change="recipeChange()" ng-options="recipe.recipe as recipe.displayName for recipe in recipes">
+                  <option value="" disabled selected>Select an Application to install</option>
+                </select>
+              </div>
+
+              <!-- AMI Type -->
+              <div class="form-group" ng-show="instance.recipe != ''">
+                <label for="amiDropdown">Instance Operating System <span class="glyphicon glyphicon-ok" style="color: green" ng-show="fieldFilled('ami')"></label>
+                <select class="form-control" id="amiDropdown" ng-model="instance.ami" ng-options="ami.ImageId as ami.Name for ami in amis">
+                  <option value="" disabled selected>Select an Instance Operating System</option>
+                </select>
+              </div>
+
+              <!-- Instance Size -->
+              <div class="form-group" ng-show="instance.recipe != ''">
+                <label for="instanceType">Instance Type <span class="glyphicon glyphicon-ok" style="color: green" ng-show="fieldFilled('type')"></label>
+                <select class="form-control" id="instanceType" ng-model="instance.type" ng-options="type as type for type in instanceTypes">
+                  <option value="" disabled selected>Select an Instance Type</option>
+                </select>
+              </div>
+
+              <!-- Instance VPC -->
+              <div class="form-group" ng-show="instance.recipe != ''">
+                <label for="instanceVPC">Instance VPC <span class="glyphicon glyphicon-ok" style="color: green" ng-show="fieldFilled('vpc')"></label>
+                <select class="form-control" id="instanceVPC" ng-model="instance.vpc" ng-change="vpcChange()" ng-options="vpc.VpcId as vpc.VpcName for vpc in vpcs">
+                  <option value="" disabled selected>Select an Instance VPC</option>
+                </select>
+              </div>
+
+              <!-- Instance Subnet -->
+              <div class="form-group" ng-show="instance.recipe != ''">
+                <label for="instanceSubnet">Instance Subnet <span class="glyphicon glyphicon-ok" style="color: green" ng-show="fieldFilled('subnet')"></label>
+                <select class="form-control" id="instanceSubnet" ng-model="instance.subnet" ng-options="subnet.SubnetId as subnet.Tags[0].Value for subnet in subnets">
+                  <option value="" disabled>Select a Subnet</option>
+                </select>
+              </div> 
+
+              <!-- AWS Key Value Pair to SSH into the instance upon creation -->
+              <div class="form-group" ng-show="instance.recipe != ''">
+                <label for="keyPair">SSH Key Value Pair <span class="glyphicon glyphicon-ok" style="color: green" ng-show="fieldFilled('sshKey')"></label>
+                <select class="form-control" id="keyPair" ng-model="instance.sshKey" ng-options="keyPair.KeyName as keyPair.KeyName for keyPair in keyPairs">
+                  <option value="" disabled>Select a Key Pair</option>
+                </select>       
+              </div>
+
+              <button type="submit" class="btn btn-primary" ng-click="createInstance()">Submit Request</button>
+            </div>
+            <div class="col-md-6">
+              <!-- Security Groups (can select multiple) -->
+              <div class="form-group" ng-show="instance.recipe != ''">
+                <label for="securityGroups">Security Groups <span class="glyphicon glyphicon-ok" style="color: green" ng-show="fieldFilled('secGroups')"></label>
+                <div ng-show="instance.vpc == ''">Please select a VPC before selecting security groups</div>
+                <ul class="list-group checked-list-box" id="securityGroups" ng-show="instance.vpc != ''">
+                  <li class="list-group-item security-group-item" ng-class="(secGroup.active) ? 'active': ''" ng-repeat="secGroup in securityGroups" id="{{secGroup.GroupId}}" ng-click="secGroupClicked(secGroup.GroupId)">{{secGroup.GroupName}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+{% endverbatim %}
+
+{% endblock %}

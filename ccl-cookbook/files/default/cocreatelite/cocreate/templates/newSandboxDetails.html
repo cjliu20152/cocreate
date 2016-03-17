@@ -1,0 +1,156 @@
+{% extends "newbase.html" %}
+{% block title %}Co-Create:Lite Sandbox Details{% endblock %}
+
+{% block content %}
+<br/>
+
+<h1>Sandbox: {{ sandbox.name }}</h1>
+<div class="row-fluid">
+    <div class="col-md-4">
+        <h2>Metadata</h2>
+        <dl>
+            <dt>Playground</dt><dd><a href="{% url 'playground' sandbox.playground.id %}">{{ sandbox.playground.name }}</a></dd>
+            <dt>Environment</dt><dd>{{ sandbox.playground.get_environment_display }}</dd>
+            <dt>Created At</dt><dd>{{ sandbox.created_at }}</dd>
+            <dt>Logical Name</dt><dd>{{ sandbox.logical_name }}</dd>
+            <dt>Private IP</dt><dd>{{ sandbox.privateIp }}</dd>
+            <dt>Private DNS</dt><dd>{{ sandbox.privateDns }}</dd>
+        </dl>
+    </div>
+    <div class="col-md-4">
+        <h2>Configuration</h2>
+        <dl>
+            <dt>Recipe</dt><dd>{{ sandbox.recipe }}</dd>
+            {% if sandbox.isInAWS %}
+            <dt>AMI</dt><dd>{{ sandbox.ami }}</dd>
+            <dt>VPC</dt><dd>{{ sandbox.vpc }}</dd>
+            <dt>Instance Type</dt><dd>{{ sandbox.instanceType }}</dd>
+            <dt>Subnet<dt><dd>{{ sandbox.subnet }}</dd>
+            <dt>SSH Key Name</dt><dd>{{ sandbox.sshKeyName }}</dd>
+            {% endif %}
+        </dl>
+    </div>
+    <div class="col-md-4">
+        <h2>Control</h2>
+            <a href="{% url 'sandbox-toggle-demo' playground.id sandbox.id %}" title="Promote as Demo" class="btn {% if sandbox.is_demo %}btn-success{% else %}btn-default{% endif %} btn-xs btn-block">
+                <span class="glyphicon glyphicon-star" aria-hidden="true"> {% if sandbox.is_demo == False %}Promote to{% endif %} Demo Sandbox</span>
+            </a>
+            {% if sandbox.isPausable %}
+            <a href="{% url 'sandbox-pause' playground.id sandbox.id %}" title="Pause VM" class="btn btn-default btn-xs btn-block">
+                <span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause Sandbox
+            </a>
+            {% endif %}
+            {% if sandbox.isStartable %}
+            <a href="{% url 'sandbox-start' playground.id sandbox.id %}" title="Start VM" class="btn btn-default btn-xs btn-block">
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Start Sandbox
+            </a>
+            {% endif %}
+        
+            {% if sandbox.isRebootable %}
+            <a href="{% url 'sandbox-reboot' playground.id sandbox.id %}" title="Reboot VM" class="btn btn-default btn-xs btn-block">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reboot Sandbox
+            </a>
+            {% endif %}
+            <a href="{% url 'sandbox-delete' playground.id sandbox.id %}" title="Remove VM" class="btn btn-danger btn-xs btn-block">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove Sandbox
+            </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h2 class="panel-title">SSH connecting to your sanbox<br/><small>You can SSH connect to this sandbox using CoCreate:Lite's private key located at /root/.ssh/id-rsa on the CoCreate:Lite instance,
+and then use it to ssh into this sandbox.</small></h2>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Details for how to SSH connect follow:<br/>
+                    <ol style="list-style: decimal inside;">
+                    <li>
+                        SSH into CoCreate:Lite Amazon EC2 instance:<br/>
+                        <ul><code>ssh -i <mark>path to the private key used to createCoCreate:Lite</mark> ec2-user@<mark>FDQN for CoCreate:Lite instance</mark></code></ul>
+                    </li>
+                    <li>
+                        Change to root:<br/>
+                        <ul><code>sudo su</code></ul>
+                    </li>
+                    <li>
+                        View the contents of the private key:<br/>
+                        <ul><code>cat /root/.ssh/id_rsa</code></ul>
+                    </li>
+                    <li>
+                        Open a text editor on your client and cut-and-paste the entire key, and save.
+                    </li>
+                    <li>
+                        Then SSH connect to the sandbox:<br/>
+                        <ul><code>ssh -i <mark>path to CoCreate:Lite's private key</mark> ec2-user@<mark>FDQN for the sandbox</mark></code></ul>
+                    </li>
+                    </ol>
+                    More information for SSH connecting is provided via <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-connect-to-instance-linux.html">Amazon AWS</a>.
+                </p> 
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if not sandbox.keys %}
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">SSH Keys</h2>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Key Name</th>
+                        <th>Finger Print</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key in sandbox.keys.all %}
+                        <tr>
+                            <td>{{ key.name }}</td>
+                            <td>{{ key.fingerprint }} - {{ key.keytype }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>{{ sandbox.sshKeyName }}</td>
+                        <td/>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if sandbox.repository %}
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Repositories</h2>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>URI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td>{{ sandbox.repository.name }}</td>
+                            <td>{{ sandbox.repository.uri }}</td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load cocreate_tags %}
+{% load staticfiles %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+
+{% if notifications|length > 0 %}
+<div class="page-header">
+    <h1>Unread Notifications</h1>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<a class="btn btn-primary" name="markallread" href="/notifications/mark/read/all">Mark All Read</a><br><br>
+	</div>
+</div>
+{% else %}
+<div class="page-header">
+    <h1>No Notifications</h1>
+</div>
+{% endif %}
+<div class="row">
+	
+		<ul>
+			{% for notice in notifications %}
+			
+				{% if notice.isSandboxRequest %}
+                    {% get_request_progress_display notice.progress as progress %}
+                    {% get_progress_color notice.progress as progress_color %}
+                    {% get_sandbox_id_from_request notice.related_model_id as sandbox_id %}
+                    <li>
+                    {{ notice.added_at }}<br>
+                    Sandbox <i>{{ notice.object_name }}</i> (<a href="{% url 'sandbox-details' sandbox_id %}">View Sandbox</a>)<br>
+                    {% if notice.error %}
+                        <img src="{% static "images/red-error-16.png" %}" border="0"/>
+                    {% endif %}
+                    {{ notice.msg }}<br>
+                    Request progress: {{ progress }}<br>
+                    <div id="progress">
+                        <div id="bar" style="width:{{ progress }};background-color:{{ progress_color }}"></div>
+                    </div>
+                    </li>
+                    <br>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	
+</div>
+
+{% endblock %}

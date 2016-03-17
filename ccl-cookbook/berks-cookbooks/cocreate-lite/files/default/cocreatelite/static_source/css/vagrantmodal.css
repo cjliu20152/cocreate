@@ -1,0 +1,25 @@
+.modal.vagrant-modal .modal-dialog {
+  width: 90%;
+}
+
+.vagrant-modal .modal-body {
+  overflow: auto;
+}
+
+#vagrantModal .modal-body p { 
+  margin-bottom: 900px 
+}
+
+.vagrantModalPre {
+    font-size: 13px;
+    color: #333;
+    word-break: break-all;
+    padding: initial;
+    margin: initial;
+    background-color: initial;
+    border: initial;
+    line-height: normal;
+    word-wrap: break-word;
+    display: initial;
+    border-radius: initial;
+}

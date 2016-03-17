@@ -1,0 +1,19 @@
+{
+    "name": "CoCreateLite",
+    "description": "The CoCreateLite environment",
+    "cookbook_versions": {
+    },
+    "json_class": "Chef::Environment",
+    "chef_type": "environment",
+    "default_attributes": {
+    },
+    "override_attributes": {
+        "mitre-baseline": {
+          "package_urls": {
+            "s3_yum": {
+              "s3-enabled": false
+            }
+          }
+        }
+    }
+}

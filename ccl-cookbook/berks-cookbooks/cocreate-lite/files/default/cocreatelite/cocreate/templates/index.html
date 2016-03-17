@@ -1,0 +1,29 @@
+{% extends "newbase.html" %}
+
+{% block title %}Co-Create:Lite{% endblock %}
+
+{% block content %}
+
+
+<div class="page-header">
+    <h2>Welcome to Co-Create:Lite</h2>
+</div>
+
+<div class="page-header">
+    <ol>
+        {% if request.user.configs.hasAwsKey %}
+    
+        {% else %}
+        <h2><li> <a href="{% url 'awskey-edit' %}">Add your Amazon Web Services key</a></span></li></h2>
+        {% endif %}
+        
+        {% if request.playground.sandboxes.all|length < 1 %}
+        <h2><li> <a href="{% url 'sandbox-add' playground.id %}">Create a new Sandbox</a></li></h2>
+        {% endif %}
+    
+    </ol>
+    
+</div>
+    {% include 'welcome.html' %}
+
+{% endblock %}

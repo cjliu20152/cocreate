@@ -1,0 +1,33 @@
+{
+  "name": "cocreate-lite",
+  "description": "CoCreate Lite Cookbook",
+  "long_description": "Installs required software packages for running CoCreate Lite in a CentOS 7 VirtualBox.",
+  "maintainer": "Emily Laughren",
+  "maintainer_email": "elaughren@mitre.org",
+  "license": "All rights reserved",
+  "platforms": {
+  },
+  "dependencies": {
+    "chef-dk": ">= 0.0.0",
+    "vagrant": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}

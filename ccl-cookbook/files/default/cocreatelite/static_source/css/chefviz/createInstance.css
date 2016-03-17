@@ -1,0 +1,13 @@
+/* CSS REQUIRED */
+.state-icon {
+    left: -5px;
+}
+.list-group-item-primary {
+    color: rgb(255, 255, 255);
+  background-color: #23518A; 
+}
+
+/* DEMO ONLY - REMOVES UNWANTED MARGIN */
+.form-group .list-group {
+    margin-bottom: 0px;
+}
