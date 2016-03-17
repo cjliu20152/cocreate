@@ -1,0 +1,28 @@
+# Cache objects
+packer_cache/
+
+# For built boxes
+*.box
+
+# OS-specific
+.DS_Store
+
+# Editor swapfiles
+.*.sw?
+*~
+
+# Vagrant stuff
+acceptance_config.yml
+boxes/*
+/.vagrant
+/website/.vagrant
+/website/build
+/vagrant-spec.config.rb
+
+# Python
+*.pyc
+
+# IDE cruft
+.idea/*
+*.iml
+.project
