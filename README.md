@@ -401,7 +401,8 @@ You will need to provide your AWS credentials, so that CoCreate:Lite can manage 
     
     8.  Choose **Submit Request**.
     
-    9.  A modal will open to permit you to monitor the provisioning and configuring of your instance until it is completed. You can choose **Close** in the bottom right of the modal to dismiss the modal without interrupting the isntance's creation.
+    9.  A modal will open to permit you to monitor the provisioning and configuring of your instance until it is completed. You can choose **Close** in the bottom right of the modal to dismiss the modal without interrupting the instance's 
+creation.
 
 ### <a name="deleteing_a_sandbox"></a>Deleteing a Sandbox
 
