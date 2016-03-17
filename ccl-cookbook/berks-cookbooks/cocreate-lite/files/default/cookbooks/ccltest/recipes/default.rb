@@ -1,1 +1,0 @@
-execute "yum -y update"

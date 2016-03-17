@@ -26,3 +26,5 @@ boxes/*
 .idea/*
 *.iml
 .project
+
+berks-cookbooks/
