@@ -1,4 +1,3 @@
-
 # CoCreate:Lite
 
 ## <a name="overview"></a>Overview
@@ -11,7 +10,7 @@ Releases of CoCreate:Lite will comply with the Semantic Versioning specification
 
 ## <a name="releases"></a>Releases
 
-Releases are distributed via the github project page. 
+Releases are distributed via the github project page.
 
 ## <a name="clone"></a>Clone this project
 
@@ -23,7 +22,7 @@ A `git clone` command will not retrieve submodules automatically. As of now ther
 
 Alternatively, using the `--recursive` flag when cloning the repository to also retrieve submodules via:
 
-	git clone --recursive https://github.com/ngageoint/cocreate.git    
+	git clone --recursive https://github.com/ngageoint/cocreate.git
 
 ## Contributing
 
@@ -47,11 +46,11 @@ Download and install the following command-line tools for your platform:
 Install the following Vagrant plugin(s):
 
     vagrant plugin install vagrant-vbguest
-    
+
 ### <a name="as_account"></a>Amazon AWS account
 
 You will need an [Amazon Web Services account](https://aws.amazon.com).
-    
+
 We strongly encourage you to utilize [IAM Best Practices](http://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html?icmpid=docs_iam_console) to constrain the damage an adversary can do, if your AWS root credentials were to be mistakenly disclosed.
 
 Also, we'd advise utilizing AWS's [Trusted Advisor Dashboard](https://console.aws.amazon.com/trustedadvisor/home#/dashboard) to gauge how securely your AWS account is configured.
@@ -113,23 +112,26 @@ of not entering a new public IP into your VPN client, if the `OpenVPN` was to be
 
          5.  In the **Associate Address** dialog box, select the instance from Instance and then choose **Associate**.
 
-11.   Then secure shell into the `OpenVPN` instance by utilizing the private key of the key pair you selected for the the instance on its creation, like so:
+11.   In the EC2 Console, select the `OpenVPN` instance, choose the **Action**, select **Networking**, and the  **Change Source/Dest. Check**. In the **Disable Source/Destination Check**, choose **Yes, Disable**.
+
+12.   Then secure shell into the `OpenVPN` instance by utilizing the private key of the key pair you selected for the the instance on its creation, like so:
 
           ssh -i <path to private key> openvpnas@<public IP of OpenVPN instance>
 
-12.   When you first secure shell in you will be presented with the OpenVPN Access Server End User License Agreement to approve.  Respond `yes`, and then accept all the defaults presented yo you by pressing the return key.
+13.   When you first secure shell in you will be presented with the OpenVPN Access Server End User License Agreement to approve.  Respond `yes`, and then accept all the defaults presented yo you by pressing the return key.
 
-13.   Then change the password of `openvpn` user by entering:
+14.   Then change the password of `openvpn` user by entering:
 
         sudo passwd openvpn
 
      Remember this password as you will utilize it to retrieve the VPN Client and admin the server. 
 
-14.   Open a web browser and type `https://` into the address bar followed by the `OpenVPN` EC2 instance's public IP. Your browser may alert you to a concern involving the server's use of a self-signed certificate, just ignore the warnings, anda thenticate with the user `openvpn` and the password you provided earlier.
+15.   Open a web browser and type `https://` into the address bar followed by the `OpenVPN` EC2 instance's public IP. Your browser may alert you to a concern involving the server's use of a self-signed certificate, just ignore the warnings, 
+anda thenticate with the user `openvpn` and the password you provided earlier.
 
-15.   Download and install the client.
+16.   Download and install the client.
 
-16.   Use the client to connect.  You now will access to instances you will later spin up on your VPC's private subnet.
+17.   Use the client to connect.  You now will access to instances you will later spin up on your VPC's private subnet.
 
 ### <a name="creating_security_groups"></a>Creating Security Groups
 
