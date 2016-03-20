@@ -100,8 +100,8 @@ Storage**.
 
 Once the `OpenVPN` instance has spun up:
 
-10.   You can optionally allocate an **Elastic IP** and associate it with your `OpenVPN` EC2 instance, otherwise skip to step 2.  AWS bills for Elastic IP usage. Utilizing one for the `OpenVPN` EC2 instance offers you the convience of not 
-entering a new public IP into your VPN client, if the `OpenVPN` was to be stopped and restarted, or terminating and creating a new VPN server instance.
+10.   You can optionally allocate an **Elastic IP** and associate it with your `OpenVPN` EC2 instance, otherwise skip to step 2. AWS bills for Elastic IP usage, but utilizing an Elastic IP for the `OpenVPN` EC2 instance offers you the convience 
+of not entering a new public IP into your VPN client, if the `OpenVPN` was to be stopped and restarted, or terminating and creating a new VPN server instance.
 
          1.  In the navigation pane, under **NETWORK & SECURITY**, choose **Elastic IPs**.
 
