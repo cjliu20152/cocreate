@@ -72,7 +72,8 @@ We encourage you to not run CoCreate:Lite with a public IP, but preferably on pr
 
 ### <a name="utilizing_a_vpn"></a>Utilizing a VPN
 
-We suggest spinning up VPN server on your VPC's public subnet to access your EC2 instances spun up on your VPC's private subnet.  There are several ways to spin up a VPN Server such as prisioning a linux EC2 instance and configuring OpenVPN, but in the following section, we will describe procuring an OpenVPN Amazon Machine Iomage (AMI) template from the Amazon Marketplace and configuring it. 
+We suggest spinning up a VPN server on your VPC's public subnet to access your EC2 instances spun up on your VPC's private subnet.  There are several ways such as a spinning up a linux EC2 instance and configuring OpenVPN yourself, but in the 
+following section, we will describe procuring an OpenVPN Amazon Machine Iomage (AMI) template from the Amazon Marketplace and configuring it. 
 
 1.  Open the Amazon EC2 console at <https://console.aws.amazon.com/ec2/>.
 
@@ -80,46 +81,48 @@ We suggest spinning up VPN server on your VPC's public subnet to access your EC2
 
 3.  On the **Choose an Amazon Machine Image (AMI)** page, select **AWS Marketplace**, and search for `OpenVPN Access Server (HVM)`, and then click **Select**.
 
-4.  On the **Choose an Instance Type** page, select the free-tier "t2.micro", and then click **Next: Configure Instance Details**.  The license that comes with this AMI only supprts two VPN connections, if you plan on more than two VPN connections you may want to select a more powerful type.  If it is just you, the free-tier should suffice.
+4.  On the **Choose an Instance Type** page, select the free-tier `t2.micro`, and then click **Next: Configure Instance Details**.  The license that comes with this AMI only supprts two VPN connections, if you plan on more than two VPN connections you may want to select a more powerful type.  If it is just you, the free-tier should suffice.
 
-5.  On the **Configure Instance Details** page, select the [VPC you created earlier](#configuring_a_vpc) for **Network**, select the VPC's private subnet for **Subnet**, select **Enable** for **Auto-assign Public IP**, and then click **Next: Add Storage**.
+5.  On the **Configure Instance Details** page, select the [VPC you created earlier](#configuring_a_vpc) for **Network**, select the VPC's public subnet for **Subnet**, select **Enable** for **Auto-assign Public IP**, and then click **Next: Add 
+Storage**.
 
-6.  On the **Add Storage** page, increase **Size (GiB)** to `30`, and then click **Next: Tag Instance**. 
+6.  On the **Add Storage** page, increase **Size (GiB)** to `30`, and then click **Next: Tag Instance**.
 
 7.  On the **Tag Instance** page, enter a **Name** of `OpenVPN`, and then click **Next: Configure Security Group**.
 
 8.  On the **Configure Security Group** page, approve the security groups provided by clicking **Click Review and Launch**.
 
-9.  On the **Review Instance Launch** page, you can review your instance launch details or go back to edit changes for each section.  
+9.  On the **Review Instance Launch** page, you can review your instance launch details or go back to edit changes for each section.
 
-     1.  If things look fine click **Launch**.
+     1.  If things look fine, click **Launch**.
 
      2.  After clicking **Launch**, a dialog will open instructing you to **Select an existing key pair or create a new key pair**.  In my case, I've selected my existing key pair, acknowledged that I have access to the selected private key file, and then click **Launch Instance** to continue.
 
 Once the `OpenVPN` instance has spun up:
 
-10.   You can optionally allocate an **Elastic IP** and associate it with your `OpenVPN` EC2 instance, otherwise skip to step 2.  AWS bills for Elastic IP usage. Utilizing one for the `OpenVPN` EC2 instance only offers you convience of not entering a new public ip  into your VPN client, if the `OpenVPN` was to be stopped and restarted.
+10.   You can optionally allocate an **Elastic IP** and associate it with your `OpenVPN` EC2 instance, otherwise skip to step 2.  AWS bills for Elastic IP usage. Utilizing one for the `OpenVPN` EC2 instance offers you the convience of not 
+entering a new public IP into your VPN client, if the `OpenVPN` was to be stopped and restarted, or terminating and creating a new VPN server instance.
 
-	 1.  In the navigation pane, under **NETWORK & SECURITY**, choose **Elastic IPs**.
-	 
-	 2.  Choose **Allocate New Address**.
-	 
-	 3.  Choose **Yes, Allocate**, and close the confirmation dialog box.
-	 
-	 4.  Select the Elastic IP address you just allocated, choose **Actions**, and then select ***Associate Address**.
-	 
-	 5.  In the **Associate Address** dialog box, select the instance from Instance and then choose **Associate**.  
+         1.  In the navigation pane, under **NETWORK & SECURITY**, choose **Elastic IPs**.
+
+         2.  Choose **Allocate New Address**.
+
+         3.  Choose **Yes, Allocate**, and close the confirmation dialog box.
+
+         4.  Select the Elastic IP address you just allocated, choose **Actions**, and then select ***Associate Address**.
+
+         5.  In the **Associate Address** dialog box, select the instance from Instance and then choose **Associate**.
 
 11.   Then secure shell into the `OpenVPN` instance by utilizing the private key of the key pair you selected for the the instance on its creation, like so:
 
           ssh -i <path to private key> openvpnas@<public IP of OpenVPN instance>
 
-12.   When you first secure shell in you will be presented with the OpenVPN Access Server End User License Agreement to approve.  Respond `yes`, and then accept all the defaults presented yo you by pressing the return key.  
+12.   When you first secure shell in you will be presented with the OpenVPN Access Server End User License Agreement to approve.  Respond `yes`, and then accept all the defaults presented yo you by pressing the return key.
 
 13.   Then change the password of `openvpn` user by entering:
-    
+
         sudo passwd openvpn
-     
+
      Remember this password as you will utilize it to retrieve the VPN Client and admin the server. 
 
 14.   Open a web browser and type `https://` into the address bar followed by the `OpenVPN` EC2 instance's public IP. Your browser may alert you to a concern involving the server's use of a self-signed certificate, just ignore the warnings, anda thenticate with the user `openvpn` and the password you provided earlier.
