@@ -100,7 +100,7 @@ file, and then click **Launch Instance** to continue, then wait for the instance
 
 Once the `OpenVPN` instance has spun up:
 
-10.   You can optionally allocate an **Elastic IP** and associate it with your `OpenVPN` EC2 instance, otherwise skip to step 2. AWS bills for Elastic IP usage, but utilizing an Elastic IP for the `OpenVPN` EC2 instance offers you the convience 
+1.   You can optionally allocate an **Elastic IP** and associate it with your `OpenVPN` EC2 instance, otherwise skip to step 2. AWS bills for Elastic IP usage, but utilizing an Elastic IP for the `OpenVPN` EC2 instance offers you the convience 
 of not entering a new public IP into your VPN client, if the `OpenVPN` was to be stopped and restarted, or terminating and creating a new VPN server instance.
 
        1.  In the navigation pane, under **NETWORK & SECURITY**, choose **Elastic IPs**.
@@ -113,26 +113,26 @@ of not entering a new public IP into your VPN client, if the `OpenVPN` was to be
 
        5.  In the **Associate Address** dialog box, enter `OpenVPN` for **Instance**, select the instance id associated with, and then choose **Associate**.
 
-11.   In the EC2 Console, select the `OpenVPN` instance, choose the **Action**, select **Networking**, and the  **Change Source/Dest. Check**. In the **Disable Source/Destination Check**, choose **Yes, Disable**.
+2.   In the EC2 Console, select the `OpenVPN` instance, choose the **Action**, select **Networking**, and the  **Change Source/Dest. Check**. In the **Disable Source/Destination Check**, choose **Yes, Disable**.
 
-12.   Then secure shell into the `OpenVPN` instance by utilizing the private key of the key pair you selected for the the instance on its creation, like so:
+3.   Then secure shell into the `OpenVPN` instance by utilizing the private key of the key pair you selected for the the instance on its creation, like so:
 
           ssh -i <path to private key> openvpnas@<public IP of OpenVPN instance>
 
-13.   When you first secure shell in you will be presented with the OpenVPN Access Server End User License Agreement to approve.  Respond `yes`, and then accept all the defaults presented yo you by pressing the return key.
+4.   When you first secure shell in you will be presented with the OpenVPN Access Server End User License Agreement to approve.  Respond `yes`, and then accept all the defaults presented yo you by pressing the return key.
 
-14.   Then change the password of `openvpn` user by entering:
+5.   Then change the password of `openvpn` user by entering:
 
         sudo passwd openvpn
 
      Remember this password as you will utilize it to retrieve the VPN Client and admin the server. 
 
-15.   Open a web browser and type `https://` into the address bar followed by the `OpenVPN` EC2 instance's public IP. Your browser may alert you to a concern involving the server's use of a self-signed certificate, just ignore the warnings, 
+6.   Open a web browser and type `https://` into the address bar followed by the `OpenVPN` EC2 instance's public IP. Your browser may alert you to a concern involving the server's use of a self-signed certificate, just ignore the warnings, 
 anda thenticate with the user `openvpn` and the password you provided earlier.
 
-16.   Download and install the client.
+7.   Download and install the client.  THe browser tab will likely hang after the client is configured for your serve, so just close thhe tab.
 
-17.   Use the client to connect.  You now will access to instances you will later spin up on your VPC's private subnet.
+8.   Use the client to connect.  You now will access to instances you will later spin up on your VPC's private subnet.
 
 ### <a name="creating_security_groups"></a>Creating Security Groups
 
@@ -338,7 +338,7 @@ We advise creating a [VPC with public and private subnets](#configuring_a_vpc), 
 
 9.  On the **Tag Instance** page,
 
-     1.  Enter a name like **My CoCreate:Lite** for the instance, and
+     1.  Enter a name like `My CoCreate:Lite` for the instance, and
      2.  Then click **Next: Configure Security Group**
 
 10.  On the **Configure Security Group** page,
@@ -351,7 +351,8 @@ We advise creating a [VPC with public and private subnets](#configuring_a_vpc), 
 
      1.  If things look fine click **Launch**.
 
-     2.  After clicking **Launch**, a modal will pop instructing you to **Select an existing key pair or create a new key pair**.  In my case, I've selected my existing key pair, acknowledged that I have access to the selected private key file, and click **Launch Instance** to continue.
+     2.  After clicking **Launch**, a modal will pop instructing you to **Select an existing key pair or create a new key pair**.  In my case, I've selected my existing key pair, acknowledged that I have access to the selected private key file, 
+and click **Launch Instance** to continue.
 
      3.  You will be greeted by a **Launch Status** page, you can click on the link provided to monitor progress. Once the hourglass is gone under **Status Checks**, you will know whether or not your new CoCreate:Lite instance is ready for use.
      
