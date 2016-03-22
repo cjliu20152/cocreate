@@ -4,7 +4,14 @@
 
 CoCreate:Lite provides an easy path for integrating and testing your applications within operationally realistic server configurations by leveraging the AWS EC2 and Chef cookbooks designed and tested for working within the NGA.
 
-![CoCreateLite demo](demo.gif)
+<style type="text/css">.easyhtml5video .eh5v_script{display:none}</style>
+<div class="easyhtml5video" style="position:relative;max-width:600px;">
+<video controls="controls"  autoplay="autoplay" poster="demo.jpg" style="width:100%" title="CoCreateLite_editted_scaled" loop="loop" onended="var v=this;setTimeout(function(){v.play()},300)">
+<source src="demo.m4v" type="video/mp4" />
+<img alt="CoCreateLite_editted_scaled" src="https://github.com/ngageoint/cocreate/blob/master/demo.gif" style="position:absolute;left:0;" width="100%" title="Video playback is not supported by your browser" />
+</object>
+</video>
+<script src="eh5v.files/html5video/html5ext.js" type="text/javascript"></script>
 
 ## <a name="versioning"></a>Versioning
 
