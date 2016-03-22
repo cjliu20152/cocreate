@@ -11,7 +11,7 @@ CoCreate:Lite provides an easy path for integrating and testing your application
 <img alt="CoCreateLite_editted_scaled" src="https://github.com/ngageoint/cocreate/blob/master/demo.gif" style="position:absolute;left:0;" width="100%" title="Video playback is not supported by your browser" />
 </object>
 </video>
-<script src="eh5v.files/html5video/html5ext.js" type="text/javascript"></script>
+<script src="https://github.com/ngageoint/cocreate/blob/master/html5ext.js" type="text/javascript"></script>
 
 ## <a name="versioning"></a>Versioning
 
