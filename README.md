@@ -326,7 +326,7 @@ We advise creating a [VPC with public and private subnets](#configuring_a_vpc), 
 6.  On the **Choose an Instance Type** page, 
 
     1.  Filter by **All Generation**,
-    2.  Select **t2.small**, and
+    2.  Select **t2.small** as CoCreate:Lite will **not** work on **t2.micro**, and
     3.  Then click **Next: Configure Instance Details**
 
 7.  On the **Configure Instance Details** page,
