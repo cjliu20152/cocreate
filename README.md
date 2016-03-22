@@ -30,7 +30,7 @@ If you plan to contribute to CoCreate:Lite, please install and use [Git Secrets]
 
 See the CONTRIBUTING.md file at the root of this project for more details on contributing.
 
-## <a name="dependencies"></a>Dependencies and Necessary Configuration.
+## <a name="dependencies"></a>Dependencies and Necessary Configuration
 
 This section enumerates the necessary command-line tools you must install, and suggests an AWS VPC configuration involving an OpenVPN serever to utilize CoCreate:Lite safely on private, isolated section of the AWS cloud.
 
@@ -95,22 +95,23 @@ Storage**.
 
      1.  If things look fine, click **Launch**.
 
-     2.  After clicking **Launch**, a dialog will open instructing you to **Select an existing key pair or create a new key pair**.  In my case, I've selected my existing key pair, acknowledged that I have access to the selected private key file, and then click **Launch Instance** to continue.
+     2.  After clicking **Launch**, a dialog will open instructing you to **Select an existing key pair or create a new key pair**.  In my case, I've selected my existing key pair, acknowledged that I have access to the selected private key 
+file, and then click **Launch Instance** to continue, then wait for the instance to be provisioned and configured.
 
 Once the `OpenVPN` instance has spun up:
 
 10.   You can optionally allocate an **Elastic IP** and associate it with your `OpenVPN` EC2 instance, otherwise skip to step 2. AWS bills for Elastic IP usage, but utilizing an Elastic IP for the `OpenVPN` EC2 instance offers you the convience 
 of not entering a new public IP into your VPN client, if the `OpenVPN` was to be stopped and restarted, or terminating and creating a new VPN server instance.
 
-         1.  In the navigation pane, under **NETWORK & SECURITY**, choose **Elastic IPs**.
+       1.  In the navigation pane, under **NETWORK & SECURITY**, choose **Elastic IPs**.
 
-         2.  Choose **Allocate New Address**.
+       2.  Choose **Allocate New Address**.
 
-         3.  Choose **Yes, Allocate**, and close the confirmation dialog box.
+       3.  Choose **Yes, Allocate**, and close the confirmation dialog box.
 
-         4.  Select the Elastic IP address you just allocated, choose **Actions**, and then select ***Associate Address**.
+       4.  Select the Elastic IP address you just allocated, choose **Actions**, and then select ***Associate Address**.
 
-         5.  In the **Associate Address** dialog box, select the instance from Instance and then choose **Associate**.
+       5.  In the **Associate Address** dialog box, enter `OpenVPN` for **Instance**, select the instance id associated with, and then choose **Associate**.
 
 11.   In the EC2 Console, select the `OpenVPN` instance, choose the **Action**, select **Networking**, and the  **Change Source/Dest. Check**. In the **Disable Source/Destination Check**, choose **Yes, Disable**.
 
