@@ -4,6 +4,8 @@
 
 CoCreate:Lite provides an easy path for integrating and testing your applications within operationally realistic server configurations by leveraging the AWS EC2 and Chef cookbooks designed and tested for working within the NGA.
 
+![CoCreateLite demo](https://github.com/ngageoint/cocreate/blob/master/demo.gif)
+
 ## <a name="versioning"></a>Versioning
 
 Releases of CoCreate:Lite will comply with the Semantic Versioning specification at [http://semver.org/][semver]. CoCreate:Lite is currently under active development; see TODO.txt, if it exists, at the root of the project for a tentative roadmap. Patches will be worked in a branch prior to being tagged and released.
