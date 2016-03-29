@@ -1,8 +1,12 @@
 # CoCreate:Lite
 
-## <a name="overview"></a>Overview
+## <a name="overview"></a>Name
 
-CoCreate:Lite provides an easy path for integrating and testing your applications within operationally realistic server configurations by leveraging the AWS EC2 and Chef cookbooks designed and tested for working within the NGA.
+CoCreate:Lite - provides an easy path for integrating and testing your applications within operationally realistic server configurations by leveraging the AWS EC2 and Chef cookbooks designed and tested for working within the NGA.
+
+## <a name="description></a>Decription
+
+CoCreate:Lite, the base AMI, and Chef Cookbooks are provided to manage the lifecycles of Applications at present in AWS EC2.
 
 ![CoCreateLite demo](demo.gif)
 
@@ -355,7 +359,7 @@ We advise creating a [VPC with public and private subnets](#configuring_a_vpc), 
 
 ## <a name="using_cocreatelite"></a>Using CoCreate:Lite
 
-CoCreate:Lite, the AMIs, and the provided Chef Cookbooks permit you to create "Sandboxes" in "Playgrouds".  At present, CoCreate:Lite is coupled to AWS EC2, so a Sandbox is an EC2 instance and playgrounds are metaphore of grouping instances.
+CoCreate:Lite, the base AMI, and provided Chef Cookbooks permit you to create "Sandboxes" in "Playgrouds".  At present, CoCreate:Lite is coupled to AWS EC2, so a Sandbox is an EC2 instance and "Playgrounds" are metaphor of grouping instances.
 
 The following sub-sections enumerate how to use CoCreate:Lite to add and delete CoCreate:Lite Sandboxes.
 
