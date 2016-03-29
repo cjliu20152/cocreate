@@ -2,11 +2,8 @@
 
 ## <a name="overview"></a>Name
 
-CoCreate:Lite - provides an easy path for integrating and testing your applications within operationally realistic server configurations by leveraging the AWS EC2 and Chef cookbooks designed and tested for working within the NGA.
-
-## <a name="description></a>Decription
-
-CoCreate:Lite, the base AMI, and Chef Cookbooks are provided to manage the lifecycles of Applications at present in AWS EC2.
+CoCreate:Lite - provides an easy path for integrating and testing your applications within operationally realistic server configurations by leveraging the AWS EC2, a base image, and Chef cookbooks designed and tested for working within the 
+NGA.
 
 ![CoCreateLite demo](demo.gif)
 
