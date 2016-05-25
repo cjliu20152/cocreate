@@ -1,20 +1,37 @@
 {
   "variables": {
     "aws_access_key": "",
-    "aws_secret_key": ""
+    "aws_secret_key": "",
+    "aws_region": "",
+    "source_ami": ""
   },
   "builders": [{
     "type": "amazon-ebs",
+    "ssh_pty": "true",
     "access_key": "{{user `aws_access_key`}}",
     "secret_key": "{{user `aws_secret_key`}}",
-    "region": "us-west-2",
-    "source_ami":  "ami-81d092b1",
+    "region": "{{user `aws_region`}}",
+    "source_ami": "{{user `source_ami`}}",
     "instance_type": "m4.large",
-    "ssh_username": "root",
+    "ssh_username": "centos",
     "ami_name": "CoCreateLite Base"
   }],
   "provisioners": [{
-    "type": "shell",
-    "script": "provision.sh"
+      "type": "shell",
+      "execute_command": "sudo -S sh '{{.Path}}'",
+      "inline": [
+          "yum -y update",
+          "yum -y install cloud-utils",
+          "useradd -G root ec2-user",
+          "mkdir /home/ec2-user/.ssh",
+          "chmod 700 /home/ec2-user/.ssh",
+          "chown ec2-user /home/ec2-user/.ssh",
+          "cp /home/centos/.ssh/authorized_keys /home/ec2-user/.ssh/.",
+          "chmod 600 /home/ec2-user/.ssh/authorized_keys",
+          "chown -R ec2-user:ec2-user /home/ec2-user/.ssh/",
+          "sed -i.bak /etc/cloud/cloud.cfg -e 's/name: centos/name: ec2-user/'",
+          "sed -i.bak /etc/sudoers -e 's/Defaults requiretty/Defaults !requiretty/'",
+          "rm /root/.ssh/authorized_keys"
+      ]
   }]
 }

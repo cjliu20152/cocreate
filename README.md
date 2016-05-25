@@ -2,8 +2,9 @@
 
 ## <a name="overview"></a>Overview
 
-CoCreate:Lite - provides an easy path for integrating and testing your applications within operationally realistic server configurations by leveraging the AWS EC2, a base image, and Chef cookbooks designed and tested for working within the 
-NGA.
+CoCreate:Lite (CCL) is a web-based application that orchestrates application and system builds and deployments. CCL brings together a collection of open-source tools (e.g., Packer, Vagrant, Chef) to enable users to provision a set of predefined system / applications stacks with the intention of configuring and provisioning multiple cloud fabrics. Initially, out the of the gate, CCL focuses on orchestrating Amazon AWS Elastic Compute Cloud (EC2) deployments of interest to the NGA. Since CCL builds out each of the component layers in sequence, CCL is able to layer in operational and organizational requirements - such security controls, organization specific configuration elements, in-house code, and validated packages and software -- in a consistent, portable and repeatable framework. This allows a CCL user to truly be a force multiplier and spend less time to get into "Compliance" and more time making their Mission capability more robust in an accelerated time to delivery.
+
+CCL utilizes Chef, a form of DevOps delivery automation to specify the configure a number of platforms and application of interest to the NGA.  A fundamental unit of configuration and policy distribution in Chef is described in a Chef cookbook. The cookbooks we've authored for CCL utilizes best preactices with care taken to protect the cyber security integrity of NGA.  The Chef recipes utilized by CCL are presently in MITRE Public Release.  At the moment, each cookbook is being reviewed by three Chef experts for technical quality before release.  Once these cookBooks pass completely through the release process (to include NGA's), the plan is for each cookBook to reside as Open Source Software in GitHub under individual project repositories, so that they can be utilized by CCL project as Git submodules as well as be re-used in any physical, virtual, or cloud platform.
 
 ![CoCreateLite demo](demo.gif)
 
@@ -49,6 +50,7 @@ Download and install the following command-line tools for your platform:
 Install the following Vagrant plugin(s):
 
     vagrant plugin install vagrant-vbguest
+    vagrant plugin install vagrant-cachier
 
 ### <a name="as_account"></a>Amazon AWS account
 
@@ -58,7 +60,7 @@ We strongly encourage you to utilize [IAM Best Practices](http://docs.aws.amazon
 
 Also, we'd advise utilizing AWS's [Trusted Advisor Dashboard](https://console.aws.amazon.com/trustedadvisor/home#/dashboard) to gauge how securely your AWS account is configured.
 
-### <a name="configuring_a_vpc"></a>Configuring an Amazon Virtual Private Cloud (VPC) 
+### <a name="configuring_a_vpc"></a>Configuring an Amazon Virtual Private Cloud (VPC)
 
 We encourage you to not run CoCreate:Lite with a public IP, but preferably on private, isolated section of the AWS cloud with direct access to the Internet or via a [Vagrant](#creating_box) by creating a VPC with public and private subnets by using the Amazon VPC Wizard.
 
@@ -118,7 +120,7 @@ Once the `OpenVPN` instance has spun up:
 
           ssh -i <path to private key> openvpnas@<public IP of OpenVPN instance>
 
-4.   When you first secure shell in you will be presented with the OpenVPN Access Server End User License Agreement to approve.  Respond `yes`, and then accept all the defaults presented yo you by pressing the return key.
+4.   When you first secure shell in you will be presented with the OpenVPN Access Server End User License Agreement to approve.  Respond `yes`, and then accept all the defaults presented to you by pressing the return key.
 
 5.   Then change the password of `openvpn` user by entering:
 
@@ -202,7 +204,7 @@ The following enumerates how to create these:
 
 ### <a name="creating_key_pairs"></a>Creating Key Pairs
 
-Before utilizing CoCreate:Lite, you will need to create a Key Pair, so that you can secure shell into the sandboxes (i.e., an AWS EC2 instances) created by CoCreate:Lite., and CoCreate:Lite itself. Amongst several options, you can utilize the [AWS CLI](http://docs.aws.amazon.com/cli/latest/reference/ec2/create-key-pair.html), import your own, or create a new Key Pair via the EC2 Console: 
+Before utilizing CoCreate:Lite, you will need to create a Key Pair, so that you can secure shell into the sandboxes (i.e., an AWS EC2 instances) created by CoCreate:Lite., and CoCreate:Lite itself. Amongst several options, you can utilize the [AWS CLI](http://docs.aws.amazon.com/cli/latest/reference/ec2/create-key-pair.html), import your own, or create a new Key Pair via the EC2 Console:
 
 1.  Open the Amazon EC2 console at <https://console.aws.amazon.com/ec2/>.
 

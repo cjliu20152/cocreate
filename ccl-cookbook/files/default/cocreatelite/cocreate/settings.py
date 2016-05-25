@@ -1,3 +1,27 @@
+#
+# Author :: Alex Ethier <aethier@mitre.org>
+# Author :: Michael Joseph Walsh <github.com@nemonik.com>
+#
+# --------------------------------------------------------
+#                          NOTICE
+# --------------------------------------------------------
+#
+# This software was produced for the U. S. Government
+# under Basic Contract No. W56KGU-15-C-0010, and is
+# subject to the Rights in Noncommercial Computer Software
+# and Noncommercial Computer Software Documentation
+# Clause 252.227-7014 (FEB 2012)
+#
+# (c) 2016 The MITRE Corporation.  All rights reserved
+#
+# See LICENSE for complete terms.
+#
+# --------------------------------------------------------
+#
+# Public release case number 15-3259.
+#
+
+
 """
 Django settings for CoCreate:Lite project.
 
@@ -14,7 +38,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_PATH = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
 DIRNAME = os.path.dirname(__file__)
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -120,7 +144,7 @@ BOOTSTRAP3 = {
     'javascript_url': '/static/js/bootstrap.min.js',
     'css_url': '/static/css/bootstrap.min.css',
     'javascript_in_head': True
-    
+
 }
 
 # Email control
@@ -147,7 +171,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'omnibus.context_processors.omnibus',
-)    
+)
 
 OMNIBUS_ENDPOINT_SCHEME = 'http'  # 'ws' is used for websocket connections
 OMNIBUS_WEBAPP_FACTORY = 'omnibus.factories.sockjs_webapp_factory'

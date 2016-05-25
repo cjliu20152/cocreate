@@ -6,7 +6,12 @@
       "override": {
         "virtualbox-iso": {
           "scripts": [
-            "./provision.sh"
+            "./scripts/update.sh",
+            "./scripts/prerequisits.sh",
+            "./scripts/vagrant.sh",
+            "./scripts/vbox-guest-additions.sh",
+            "./scripts/misc-config.sh",
+            "./scripts/cleanup.sh"
           ]
         }
       }
@@ -17,7 +22,7 @@
       "type": "vagrant",
       "override": {
         "virtualbox": {
-          "output": "centos-6-7-x64-virtualbox.box"
+          "output": "centos-7-2-1511-x64-virtualbox.box"
         }
       }
     }
@@ -32,9 +37,9 @@
       "disk_size": 40520,
       "guest_os_type": "RedHat_64",
       "http_directory": "http",
-      "iso_checksum": "2ed5ea551dffc3e4b82847b3cee1f6cd748e8071",
+      "iso_checksum": "783eef50e1fb91c78901d0421d8114a29b998478",
       "iso_checksum_type": "sha1",
-      "iso_url": "http://mirror.rackspace.com/CentOS/6.7/isos/x86_64/CentOS-6.7-x86_64-minimal.iso",
+      "iso_url": "http://mirror.rackspace.com/CentOS/7.2.1511/isos/x86_64/CentOS-7-x86_64-Minimal-1511.iso",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,

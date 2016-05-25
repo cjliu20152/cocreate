@@ -1,3 +1,27 @@
+#
+# Author :: Alex Ethier <aethier@mitre.org>
+# Author :: Michael Joseph Walsh <github.com@nemonik.com>
+#
+# --------------------------------------------------------
+#                          NOTICE
+# --------------------------------------------------------
+#
+# This software was produced for the U. S. Government
+# under Basic Contract No. W56KGU-15-C-0010, and is
+# subject to the Rights in Noncommercial Computer Software
+# and Noncommercial Computer Software Documentation
+# Clause 252.227-7014 (FEB 2012)
+#
+# (c) 2016 The MITRE Corporation.  All rights reserved
+#
+# See LICENSE for complete terms.
+#
+# --------------------------------------------------------
+#
+# Public release case number 15-3259.
+#
+
+
 #!/usr/bin/python
 
 """
@@ -24,17 +48,17 @@ def getJob(conn):
         conn.commit()
     except TypeError:
         return None
-            
+
     return {"request_id": request_id, "sandbox_id": sandbox_id, "requested_by_id": requested_by_id, "sandbox_name": sandbox_name, "sandbox_recipe": sandbox_recipe}
 
 def dispatchJob(job):
     """
     Call out to the VM creation code to set things up. This also generates a FQDN and IP address.
     """
-    
+
     # Eventually, we want to allow the user to specify the desired hostname in the request.
     hostname = "cocreate%d" % (job['sandbox_id'])
-    
+
     if getMode() == "dev":
         return True, {
             "job": job,
@@ -63,7 +87,7 @@ def dispatchJob(job):
                 "err_message": "Error while creating sandbox",
                 "progress": 0
             }
-    
+
 def updateSandbox(conn, success, jobResults):
     """
     Update the database with the results of the VM creation request.
@@ -82,73 +106,73 @@ def updateProgress(request_id, percent_complete, message, url=None):
     """
     Update the progress of the sandbox request in the database.
     """
-   
+
     cur = conn.execute("SELECT sandbox_id, sandbox_name, requested_by_id FROM cocreate_sandboxrequest WHERE id = ?", (request_id,))
     try:
         sandbox_id, sandbox_name, requested_by_id = cur.fetchone()
     except TypeError:
         raise LookupError('specified request not found')
-    
+
     if percent_complete < 0 or percent_complete > 100:
         raise ValueError('percent_complete out of range')
-    
+
     if len(message) > 100:
         raise ValueError('message too long')
-    
+
     if percent_complete == 100:
         conn.execute("UPDATE cocreate_sandboxrequest SET request_status = ?, request_progress = ?, request_progress_msg = ? WHERE id = ?", ('avl', percent_complete, message, request_id))
     else:
         conn.execute("UPDATE cocreate_sandboxrequest SET request_progress = ?, request_progress_msg = ? WHERE id = ?", (percent_complete, message, request_id))
-        
+
     conn.execute(
         "INSERT INTO cocreate_notification (added_at, read, msg, related_model_type, related_model_id, owner_id, progress, object_name, error) values (datetime('now'), 0, ?, 'srq', ?, ?, ?, ?, 0)",
         (message, request_id, requested_by_id, percent_complete, sandbox_name)
     )
-    
+
     if url:
         conn.execute("UPDATE cocreate_sandbox SET url = ? WHERE id = ?", (url,sandbox_id ))
 
     conn.commit()
-        
+
     return
 
 def getMode():
     mode = "test"
-    
+
     if len(sys.argv) > 1:
         if sys.argv[-1].lower() in ['dev', 'test', 'prod']:
             mode = sys.argv[-1].lower()
     return mode
-    
+
 if __name__ == "__main__":
-    
-    
+
+
     print("Starting Co-Create background worker...")
     conn = connectDB()
-    
+
     # For dev testing
     if getMode() == "dev":
         percent_complete = 25
-        
+
     try:
         while True:
             job = getJob(conn)
-            
+
             if job is not None:
-                
+
                 print( "Got a job:" )
                 print( "\tRequest id: %d" % (job['request_id']) )
                 print( "\tSandbox id: %d" % (job['sandbox_id']) )
-                
+
                 success, jobResults = dispatchJob(job)
                 updateSandbox(conn, success, jobResults)
-               
-                if success: 
+
+                if success:
                     print( "\tFQDN: %s" % (jobResults['fqdn']) )
                     print( "\tIP Address: %s" % (jobResults['ip_address']) )
                 else:
                     print("\tError: " + jobResults['err_message'])
-                
+
                 ##############################################
                 # For dev testing
                 if getMode() == "dev":
@@ -160,7 +184,7 @@ if __name__ == "__main__":
                         updateProgress(job['request_id'], percent_complete, msg)
                         percent_complete += 25
                 ##############################################
-            
+
             time.sleep(10)
     finally:
         print('Closing database connection')

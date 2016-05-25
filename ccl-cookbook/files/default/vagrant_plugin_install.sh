@@ -1,6 +1,30 @@
+#
+# Author :: Alexander Ethier <aethier@mitre.org>
+# Author :: Michael Joseph Walsh <github.com@nemonik.com>
+#
+# --------------------------------------------------------
+#                          NOTICE
+# --------------------------------------------------------
+#
+# This software was produced for the U. S. Government
+# under Basic Contract No. W56KGU-15-C-0010, and is
+# subject to the Rights in Noncommercial Computer Software
+# and Noncommercial Computer Software Documentation
+# Clause 252.227-7014 (FEB 2012)
+#
+# (c) 2016 The MITRE Corporation.  All rights reserved
+#
+# See LICENSE for complete terms.
+#
+# --------------------------------------------------------
+#
+# Public release case number 15-3259.
+#
+
+
 #!/bin/bash
 
-# The Chef community considers randomely failing plugin installs to be acceptable:
+# The Chef community considers randomly failing plugin installs to be acceptable:
 # https://github.com/tmatilai/vagrant-proxyconf/issues/78
 # https://github.com/emyl/vagrant-triggers/issues/32
 # https://github.com/GM-Alex/vagrant-winnfsd/issues/33
@@ -19,8 +43,9 @@ while [ $PLUGIN_COUNT -lt 6 -a $COUNT -lt 5 ]; do
     vagrant plugin install vagrant-berkshelf
     vagrant plugin install vagrant-proxyconf
     vagrant plugin install vagrant-triggers
+    vagrant plugin install vagrant-cachier
 
-    PLUGIN_COUNT=`vagrant plugin list | grep 'vagrant-aws\|vagrant-awsinfo\|vagrant-berkshelf\|vagrant-proxyconf\|vagrant-share\|vagrant-triggers' | wc -l`
+    PLUGIN_COUNT=`vagrant plugin list | grep 'vagrant-aws\|vagrant-awsinfo\|vagrant-berkshelf\|vagrant-proxyconf\|vagrant-share\|vagrant-triggers\|vagrant-cachier' | wc -l`
 done
 
 exit 0

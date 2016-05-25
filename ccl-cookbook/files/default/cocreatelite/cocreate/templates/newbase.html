@@ -1,3 +1,29 @@
+<!--
+#
+# Author :: Alex Ethier <aethier@mitre.org>
+# Author :: Michael Joseph Walsh <github.com@nemonik.com>
+#
+# --------------------------------------------------------
+#                          NOTICE
+# --------------------------------------------------------
+#
+# This software was produced for the U. S. Government
+# under Basic Contract No. W56KGU-15-C-0010, and is
+# subject to the Rights in Noncommercial Computer Software
+# and Noncommercial Computer Software Documentation
+# Clause 252.227-7014 (FEB 2012)
+#
+# (c) 2016 The MITRE Corporation.  All rights reserved
+#
+# See LICENSE for complete terms.
+#
+# --------------------------------------------------------
+#
+# Public release case number 15-3259.
+#
+//-->
+
+
 {% extends "bootstrap.html" %}
 
 {% load url from future %}
@@ -22,7 +48,7 @@
 {% block title %}CoCreate:Lite{% endblock %}
 {% block bootstrap3_content %}
         {% bootstrap_messages %}
-        
+
 
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
@@ -40,9 +66,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        
+
             <li><a href="{% url 'playgrounds' %}"><span class="glyphicon glyphicon-hdd"></span> Playgrounds</a></li>
-            
+
             <li>
                 <a href="{% url 'notifications' %}">
                     <span class="glyphicon glyphicon-envelope"></span> Notifications
@@ -68,8 +94,8 @@
                 </ul>
             </li>
       </ul>
-      
-      
+
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -78,7 +104,7 @@
 
             {% block content %}(no content){% endblock %}
         </div>
-        
+
         <div class="footer">
           <div class="container">
               <div class="row">

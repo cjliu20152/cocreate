@@ -1,3 +1,29 @@
+<!--
+#
+# Author :: Alex Ethier <aethier@mitre.org>
+# Author :: Michael Joseph Walsh <github.com@nemonik.com>
+#
+# --------------------------------------------------------
+#                          NOTICE
+# --------------------------------------------------------
+#
+# This software was produced for the U. S. Government
+# under Basic Contract No. W56KGU-15-C-0010, and is
+# subject to the Rights in Noncommercial Computer Software
+# and Noncommercial Computer Software Documentation
+# Clause 252.227-7014 (FEB 2012)
+#
+# (c) 2016 The MITRE Corporation.  All rights reserved
+#
+# See LICENSE for complete terms.
+#
+# --------------------------------------------------------
+#
+# Public release case number 15-3259.
+#
+//-->
+
+
 {% extends "newbase.html" %}
 
 {% block html %}ng-app="chefInstanceCreate"{% endblock %}
@@ -101,14 +127,14 @@
                 <select class="form-control" id="instanceSubnet" ng-model="instance.subnet" ng-options="subnet.SubnetId as subnet.Tags[0].Value for subnet in subnets">
                   <option value="" disabled>Select a Subnet</option>
                 </select>
-              </div> 
+              </div>
 
-              <!-- AWS Key Value Pair to SSH into the instance upon creation 
+              <!-- AWS Key Value Pair to SSH into the instance upon creation
               <div class="form-group" ng-show="instance.recipe != ''">
                 <label for="keyPair">SSH Key Value Pair <span class="glyphicon glyphicon-ok" style="color: green" ng-show="fieldFilled('sshKey')"></label>
                 <select class="form-control" id="keyPair" ng-model="instance.sshKey" ng-options="keyPair.KeyName as keyPair.KeyName for keyPair in keyPairs">
                   <option value="" disabled>Select a Key Pair</option>
-                </select>       
+                </select>
               </div>
              -->
 
@@ -143,5 +169,5 @@
     <script src="{% static "js/app/util.js" %}"></script>
     <script src="{% static "js/app/addAWSInstance.js" %}"></script>
     <script type="text/javascript" src="{% static 'omnibus/omnibus.js' %}"></script>
-    <script type="text/javascript" src="{% static 'omnibus/sockjs.min.js' %}"></script>    
+    <script type="text/javascript" src="{% static 'omnibus/sockjs.min.js' %}"></script>
 {% endblock %}

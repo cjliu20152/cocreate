@@ -1,3 +1,27 @@
+#
+# Author :: Alexander Ethier <aethier@mitre.org>
+# Author :: Michael Joseph Walsh <github.com@nemonik.com>
+# 
+# --------------------------------------------------------
+#                          NOTICE
+# --------------------------------------------------------
+#
+# This software was produced for the U. S. Government
+# under Basic Contract No. W56KGU-15-C-0010, and is
+# subject to the Rights in Noncommercial Computer Software
+# and Noncommercial Computer Software Documentation
+# Clause 252.227-7014 (FEB 2012)
+#
+# (c) 2016 The MITRE Corporation.  All rights reserved
+#
+# See LICENSE for complete terms.
+#
+# --------------------------------------------------------
+#
+# Public release case number 15-3259.
+#
+
+
 """
 API Endpoints for RESTful JSON based data access.
 """
@@ -20,13 +44,6 @@ import subprocess
 from omnibus import api
 
 from ..models import UserConfig
-
-#AMIS = ["ami-ed1204dd"] # Hardcoded list of tested amis
-    # This is a Centos AMI that is known to work with geoq.  Various other AMIs won't work, some issues are:
-    # - Not all ami's support user-data
-    # - Only Centos/Rhel 6 work with some of our third party cookbooks
-    # - Some ami's use root as the initial login user instead of ec2-user
-
 
 # TODO: Should these be int settings.py vice being crammed in here?
 #
@@ -52,10 +69,11 @@ def getSessionClient(request):
     ec2 = session.client('ec2')
     return ec2
 
+
 def errorWithMessage(s):
     return {"error": True, "msg": s}
 
-    
+
 def nodeControllerError(r):
     return errorWithMessage("Error reaching node controller (HTTP Error %d)" % r.status_code)
 
@@ -110,12 +128,12 @@ def aws_instanceTypes(request):
 def isee_instanceTypes(request):
     """
     Mimic the data format of the AWS results:
-        
+
         {"InstanceTypes":["name_001", ..., "name_xxx"]}
     """
     isee_types = ["small", "medium", "large", "x-large"]
     return JsonResponse({"InstanceTypes": isee_types})
- 
+
 
 def aws_amis(request):
     """
@@ -179,7 +197,7 @@ def aws_vpc_subnets(request, vpc_name):
     print("aws_vpc_subnets =============>", JsonResponse(ec2.describe_subnets(Filters=[{'Name':'vpc-id', 'Values': [vpc_name]}])))
     return JsonResponse(ec2.describe_subnets(Filters=[{'Name':'vpc-id', 'Values': [vpc_name]}]))
 
-    
+
 def aws_vpc_secgroups(request, vpc_name):
     """
     Determine available security groups based on VPC
@@ -188,7 +206,7 @@ def aws_vpc_secgroups(request, vpc_name):
     print(ec2.describe_security_groups(Filters=[{'Name':'vpc-id', 'Values': [vpc_name]}]))
     return JsonResponse(ec2.describe_security_groups(Filters=[{'Name':'vpc-id', 'Values': [vpc_name]}]))
 
-    
+
 def chef_cookbooks(request):
     """
     Determine available cookbooks
@@ -197,11 +215,11 @@ def chef_cookbooks(request):
     supported_recipes = [{"displayName": "Apache Webserver", "recipe": "nga-webserver"},
       {"displayName": "Baseline Security Patches", "recipe": "nga-baseline"},
       {"displayName": "EAW OWF", "recipe": "nga-ozone::owf"},
-      {"displayName": "EAW App Mall", "recipe": "nga-ozone::omp"},    
+      {"displayName": "EAW App Mall", "recipe": "nga-ozone::omp"},
       {"displayName": "GeoEvents", "recipe": "geoevents"},
-      {"displayName": "GeoQ", "recipe": "geoq"},    
-      {"displayName": "CoCreate Lite", "recipe": "cocreate-lite"},    
-      {"displayName": "CCL Test", "recipe": "ccltest"},    
+      {"displayName": "GeoQ", "recipe": "geoq"},
+      {"displayName": "CoCreate Lite", "recipe": "cocreate-lite"},
+      {"displayName": "CCL Test", "recipe": "ccltest"},
       {"displayName": "Tomcat Application Server", "recipe": "nga-appserver"}]
 
     # Only list cookbooks the user has actually installed on their system
@@ -232,7 +250,7 @@ def aws_recipeConfig(request, recipe_name):
     """
     return JsonResponse({'default_configs': []})
     #return nodeProxyRequest("/aws/applicationConfig/" + recipe_name, debug=True)
- 
+
 
 def isee_recipeConfig(request, recipe_name):
     """
@@ -326,7 +344,7 @@ def aws_create(request, playground):
     aws_access_key = UserConfig.objects.findOrCreate_AwsKey(request.user).val
     aws_secret_key = UserConfig.objects.findOrCreate_AwsSecret(request.user).val
 
-    create_private_key(aws_access_key, aws_secret_key)    
+    create_private_key(aws_access_key, aws_secret_key)
 
     http_proxy = UserConfig.objects.findOrCreate_ProxyHttp(request.user).val
     https_proxy = UserConfig.objects.findOrCreate_ProxyHttps(request.user).val
@@ -404,10 +422,10 @@ def aws_create(request, playground):
     file.write('end')
     file.close()
 
-    # TODO: a separate process using something like Celery or Twisted to 
+    # TODO: a separate process using something like Celery or Twisted to
     #       create/provision the new resource and provide better status info
-    
-    # Run 
+
+    # Run
 
     cwd_path = VAGRANT_PATH + vm_id
     aws_name = request.POST['name']
@@ -456,15 +474,15 @@ def aws_create(request, playground):
         for line in iter(vagrantProcess.stdout.readline, b''):
             line = line.decode("utf-8").rstrip()
             print("<stdout> " + line, flush=True)
-            api.publish('vagrants', aws_name, {'text': line})  
-            aws_info += line   
-        
-        # TODO:  so this will fail if aws_stdout doesn't hhave the expected string
+            api.publish('vagrants', aws_name, {'text': line})
+            aws_info += line
+
+        # TODO:  so this will fail if aws_stdout doesn't have the expected string
         #        need to trap and better handle either here or by what calls this
         #        method
-        
+
         instance_id = json.loads(aws_info)['instance_id']
-        print("set instance_id = " + instance_id)        
+        print("set instance_id = " + instance_id)
 
     if vagrantProcess.stderr is not None:
         for line in iter(vagrantProcess.stderr.readline, b''):
@@ -476,7 +494,6 @@ def aws_create(request, playground):
     # add space between
     api.publish('vagrants', aws_name, {'text': ''})
 
-    
     vagrant_cmd = 'vagrant provision'
     print("executing: " + vagrant_cmd, flush=True)
     api.publish('vagrants', aws_name, {'text': vagrant_cmd})
@@ -495,13 +512,13 @@ def aws_create(request, playground):
             print("<stderr> " + line, flush=True)
             api.publish('vagrants', aws_name, {'text': line})
 
-    # add space between 
+    # add space between
     api.publish('vagrants', aws_name, {'text': ''})
 
     api.publish('vagrants', aws_name, {'text': 'Done.  Goodbye.'})
 
     return instance_id
-    
+
 
 def aws_instance_by_id(request):
     return JsonResponse()
@@ -528,4 +545,3 @@ def terminate_instance(request, awsInstanceId, playground_name, sandbox_name):
 
     ec2 = getSessionClient(request)
     ec2.terminate_instances(InstanceIds=[awsInstanceId])
-

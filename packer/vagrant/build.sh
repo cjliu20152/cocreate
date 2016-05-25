@@ -1,15 +1,31 @@
 #!/bin/sh
 
 #
-# Copyright (c) 2016, The MITRE Corporation. All rights reserved.
+# Author :: Michael Joseph Walsh <github.com@nemonik.com>
+#
+# --------------------------------------------------------
+#                          NOTICE
+# --------------------------------------------------------
+#
+# This software was produced for the U. S. Government
+# under Basic Contract No. W56KGU-15-C-0010, and is
+# subject to the Rights in Noncommercial Computer Software
+# and Noncommercial Computer Software Documentation
+# Clause 252.227-7014 (FEB 2012)
+#
+# (c) 2016 The MITRE Corporation.  All rights reserved
+#
 # See LICENSE for complete terms.
 #
+# --------------------------------------------------------
+#
+# Public release case number 15-3259.
+#
+
 
 #
 # A shell script that wraps packer build
 #
-#
-# @author Michael Joseph <github.com@nemonik.com>
-#
 
-packer build centos-6.7-64.json
+
+packer build centos-7-2-1511-minimal.json
