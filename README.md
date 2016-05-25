@@ -110,7 +110,7 @@ Once the `OpenVPN` instance has spun up:
 
        3.  Choose **Yes, Allocate**, and close the confirmation dialog box.
 
-       4.  Select the Elastic IP address you just allocated, choose **Actions**, and then select ***Associate Address**.
+       4.  Select the Elastic IP address you just allocated, choose **Actions**, and then select **Associate Address**.
 
        5.  In the **Associate Address** dialog box, enter `OpenVPN` for **Instance**, select the instance id associated with, and then choose **Associate**.
 
@@ -284,13 +284,7 @@ At the root of the project, utilize the provided vagrantfile to spin up CoCreate
 
     vagrant up
 
-It will take a rather lengthy amount of time for the Vagrant to spin up.
-
-    vagrant ssh
-    sudo /etc/init.d/cocreate start
-    sudo /etc/init.d/omnibusd start
-
-Then point your browser to <http://127.0.0.1:8080>.
+Then point your browser to <http://127.0.0.1:8081>.
 
 ### <a name="stopping_destroying_cleaning_up_vagrant"></a>Stopping, Destroying, and Cleaning Up
 
@@ -302,11 +296,11 @@ To delete the CoCreate:Lite Vagrant virtual machine:
 
     vagrant destroy
 
-To delete the `ngageoint/centos-6.7-64` box :
+To delete the `packer/vagrant/centos-7-2-1511-x64-virtualbox.box` box :
 
     cd packer/vagrant
-    rm centos-6-7-x64-virtualbox.box
-    vagrant box remove  ngageoint/centos-6.7-64
+    rm centos-7-2-1511-x64-virtualbox.box
+    vagrant box remove packer/vagrant/centos-7-2-1511-x64-virtualbox.box
 
 ## Spinning up CoCreate:Lite in the Amazon Elastic Compute Cloud (EC2)
 
