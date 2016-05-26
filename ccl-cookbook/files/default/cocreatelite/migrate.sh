@@ -1,5 +1,6 @@
 #
-# Author :: aethier <aethier@mitre.org>
+# Author :: Patrick Dwyer <patricknevindwyer@gmail.com> 
+# Author :: Alexander Ethier <aethier@mitre.org>
 # 
 # --------------------------------------------------------
 #                          NOTICE

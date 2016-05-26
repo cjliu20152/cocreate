@@ -1,5 +1,5 @@
 #
-# Author :: aethier <aethier@mitre.org>
+# Author :: Alexander Ethier <aethier@mitre.org>
 # 
 # --------------------------------------------------------
 #                          NOTICE
