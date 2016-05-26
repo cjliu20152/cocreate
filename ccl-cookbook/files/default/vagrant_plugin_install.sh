@@ -1,4 +1,5 @@
 #
+# Author :: Patrick Dwyer <patricknevindwyer@gmail.com> 
 # Author :: Alexander Ethier <aethier@mitre.org>
 # Author :: Michael Joseph Walsh <github.com@nemonik.com>
 #
