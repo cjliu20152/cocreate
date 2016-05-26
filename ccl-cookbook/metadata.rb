@@ -24,9 +24,9 @@
 
 
 name             'cocreate-lite'
-maintainer       'Emily Laughren'
-maintainer_email 'elaughren@mitre.org'
-license          'All rights reserved'
+maintainer       'Michael Joseph Walsh'
+maintainer_email 'github.com@nemonik.com'
+license          'See License file at root of https://github.com/ngageoint/cocreate'
 description      'CoCreate Lite Cookbook'
 long_description 'Installs required software packages for running CoCreate Lite in a CentOS 7 VirtualBox.'
 version          '0.2'
